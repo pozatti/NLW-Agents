@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { CreateQuestionRequest } from './types/create-question-request'
 import type { CreateQuestionResponse } from './types/create-question-response'
-import type { GetRoomQuestionsResponse } from './types/get-room-questions-response'
+import type { GetRoomsQuestionsResponse } from './types/get-rooms-questions-response'
 
 export function useCreateQuestion(roomId: string) {
   const queryClient = useQueryClient()
@@ -26,7 +26,7 @@ export function useCreateQuestion(roomId: string) {
 
     // Executa no momento que for feita a chamada p/ API
     onMutate({ question }) {
-      const questions = queryClient.getQueryData<GetRoomQuestionsResponse>([
+      const questions = queryClient.getQueryData<GetRoomsQuestionsResponse>([
         'get-questions',
         roomId,
       ])
@@ -41,7 +41,7 @@ export function useCreateQuestion(roomId: string) {
         isGeneratingAnswer: true,
       }
 
-      queryClient.setQueryData<GetRoomQuestionsResponse>(
+      queryClient.setQueryData<GetRoomsQuestionsResponse>(
         ['get-questions', roomId],
         [newQuestion, ...questionsArray]
       )
@@ -50,7 +50,7 @@ export function useCreateQuestion(roomId: string) {
     },
 
     onSuccess(data, _variables, context) {
-      queryClient.setQueryData<GetRoomQuestionsResponse>(
+      queryClient.setQueryData<GetRoomsQuestionsResponse>(
         ['get-questions', roomId],
         (questions) => {
           if (!questions) {
@@ -79,7 +79,7 @@ export function useCreateQuestion(roomId: string) {
 
     onError(_error, _variables, context) {
       if (context?.questions) {
-        queryClient.setQueryData<GetRoomQuestionsResponse>(
+        queryClient.setQueryData<GetRoomsQuestionsResponse>(
           ['get-questions', roomId],
           context.questions
         )

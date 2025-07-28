@@ -15,6 +15,13 @@
       "when": 1752244012682,
       "tag": "0001_shallow_lockjaw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753231208826,
+      "tag": "0002_tiresome_yellowjacket",
+      "breakpoints": true
     }
   ]
 }
